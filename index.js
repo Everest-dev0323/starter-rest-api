@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
-const db = require('@cyclic.sh/dynamodb')
+const CyclicDb = require("@cyclic.sh/dynamodb")
+const db = CyclicDb("wild-puce-sockeye-fezCyclicDB")
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
