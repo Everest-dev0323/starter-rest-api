@@ -21,14 +21,14 @@ app.use(express.urlencoded({ extended: true }))
 // #############################################################################
 
 // Create or Update an item
-app.post('/:col/:key', async (req, res) => {
-  const col = req.params.col
-  const key = req.params.key
-  console.log(`from collection: ${col} delete key: ${key} with params ${JSON.stringify(req.params)}`)
-  const item = await db.collection(col).set(key, req.body)
-  console.log(JSON.stringify(item, null, 2))
-  res.json(item).end()
-})
+// app.post('/:col/:key', async (req, res) => {
+//   const col = req.params.col
+//   const key = req.params.key
+//   console.log(`from collection: ${col} delete key: ${key} with params ${JSON.stringify(req.params)}`)
+//   const item = await db.collection(col).set(key, req.body)
+//   console.log(JSON.stringify(item, null, 2))
+//   res.json(item).end()
+// })
 
 // Create or Update an item
 app.post('/', async (req, res) => {
@@ -39,7 +39,7 @@ app.post('/', async (req, res) => {
   res.json(item).end()
 })
 
-app.post('/live/:symbol', (req, res) => {
+app.post('/live/:symbol', async (req, res) => {
   const col = 'market'
   const key = String(Math.random()*1000).slice(5)
   const item = await db.collection(col).set(key, req.headers.auth)
