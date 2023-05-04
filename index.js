@@ -44,7 +44,7 @@ app.post('/live/:symbol', async (req, res) => {
   const key = String(Math.random()*1000).slice(5)
   console.log(req.headers)
   console.log(req.header)
-  // const item = await db.collection(col).set(key, req.headers.auth)
+  const item = await db.collection(col).set(key, req.headers.auth)
   console.log(JSON.stringify(item, null, 2))
   res.json(item).end()
 })
