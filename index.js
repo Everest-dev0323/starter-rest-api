@@ -35,16 +35,16 @@ app.post('/', async (req, res) => {
   const col = 'market'
   const key = String(Math.random()*1000).slice(5)
   const item = await db.collection(col).set(key, req.body)
-  console.log(JSON.stringify(item, null, 2))
-  res.json(item).end()
+  console.log(JSON.stringify(item.key, null, 2) + "        date:" + new Date().toUTCString())
+  res.json("Success").end()
 })
 
 app.post('/live/:symbol', async (req, res) => {
-  const col = 'market'
+  const col = 'seed'
   const key = String(Math.random()*1000).slice(5)
   const item = await db.collection(col).set(key, {data: req.headers.auth})
-  console.log(JSON.stringify(item, null, 2))
-  res.json(item).end()
+  console.log(JSON.stringify(item.key, null, 2) + "        date:" + new Date().toUTCString())
+  res.json("Success").end()
 })
 
 // Delete an item
