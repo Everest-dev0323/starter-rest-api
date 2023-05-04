@@ -33,6 +33,8 @@ app.post('/:col/:key', async (req, res) => {
 // Create or Update an item
 app.post('/', async (req, res) => {
   const col = 'market'
+  console.log(req.headers)
+  console.log(req.header)
   const key = String(Math.random()*1000).slice(5)
   const item = await db.collection(col).set(key, req.body)
   console.log(JSON.stringify(item, null, 2))
