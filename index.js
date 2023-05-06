@@ -35,7 +35,7 @@ app.post('/', async (req, res) => {
   const col = 'market'
   const key = String(Math.random()*1000).slice(5)
   const item = await db.collection(col).set(key, req.body)
-  console.log(JSON.stringify(item.key, null, 2) + "        date:" + new Date().toUTCString())
+  console.log(JSON.stringify(item, null, 2))
   res.json("Success").end()
 })
 
@@ -43,7 +43,7 @@ app.post('/live/:symbol', async (req, res) => {
   const col = 'seed'
   const key = String(Math.random()*1000).slice(5)
   const item = await db.collection(col).set(key, {data: req.headers.auth})
-  console.log(JSON.stringify(item.key, null, 2) + "        date:" + new Date().toUTCString())
+  console.log(JSON.stringify(item, null, 2))
   res.json("Success").end()
 })
 
@@ -63,8 +63,18 @@ app.get('/:col/:key', async (req, res) => {
   const key = req.params.key
   console.log(`from collection: ${col} get key: ${key} with params ${JSON.stringify(req.params)}`)
   const item = await db.collection(col).get(key)
+
+  const { tokens, coins } = item.props.data
+  const data = []
+  for(let token of ([...tokens, ...coins])) {
+    data.push({
+      symbol: token.symbol,
+      address: token.walletAddress,
+    })
+  }
+
   console.log(JSON.stringify(item, null, 2))
-  res.json(item).end()
+  res.json(data).end()
 })
 
 // Get a full listing
